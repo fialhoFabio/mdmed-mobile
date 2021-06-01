@@ -1,0 +1,272 @@
+// https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb/rules
+
+{
+  "extends": ["airbnb", "react-app"], // package.json já tem o react-app extendido, mas não parece estar funcionando
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": [
+    "sorting"
+  ],
+  "env": {
+    "jest": true
+  },
+  "globals": {
+    "atob": true,
+    "Blob": true,
+    "btoa": true,
+    "document": true,
+    "localStorage": true,
+    "navigator": true,
+    "window": true,
+    "File": true,
+    "FileReader": true,
+    "FormData": true,
+    "HTMLVideoElement": true,
+    "Image": true,
+    "Math": true,
+    "Promise": true,
+    "Event": true,
+    "fetch": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    ////////////////////////////////
+    // desabilita regra do airbnb //
+    ////////////////////////////////
+    "arrow-body-style": ["off"],
+    "class-methods-use-this": ["off", {"exceptMethods": ["shouldComponentUpdate"]}], // Dificil, tem os handlers..
+    "eqeqeq": ["off"], // Não tem como saber quando precisa de == ou === tem casos que tem que ser 1 == '1'
+    "import/extensions": ["off"], // Bobagem
+    "import/order": ["off"], // Estamos importando o css no topo, a nova recomendação é que seja por último
+    "import/no-anonymous-default-export": ["off"], //
+    "import/no-unresolved": ["off"], // Precisa ver uma forma de extender os alias do webpack
+    "jsx-a11y/label-has-associated-control": ["off"], //
+    "jsx-a11y/click-events-have-key-events": ["off"], //
+    "jsx-a11y/control-has-associated-label": ["off"], //
+    "jsx-a11y/label-has-for": ["off"], //
+    "no-console": ["off"], // Bobagem
+    "no-else-return": ["off"], // Bobagem
+    "no-plusplus": ["off"], // Bobagem
+    "no-useless-escape": ["off"], // Não funciona
+    "prefer-template": ["off"], // Modelo `Nome: $(nome)` no lugar do método convencional 'Nome: ' + nome
+    "react/destructuring-assignment": ["off"], // Bobagem
+    "react/jsx-curly-brace-presence": ["off"], // Bobagem
+    "react/jsx-filename-extension": ["off"], // .jsx, sucks .js rocks
+    "react/jsx-fragments": ["off"], // Por enquanto vamos continuar usando Fragment
+    "react/jsx-props-no-spreading": ["off"], // Por hora off, é interessante mas precisamos do eslint-disable em alguns casos
+    "react/no-danger": ["off"], // Necessário em alguns casos
+    "react/require-default-props": ["off"], // Bobagem
+    "react/state-in-constructor": ["off"], // Por hora
+
+    //////////////////////////////
+    // sobrepõe regra do airbnb //
+    //////////////////////////////
+    /*
+    'arrow-parens': ['error', 'as-needed', {
+      requireForBlockBody: true,
+    }],
+    */
+    "arrow-parens": ["warn", "always"], // Força sempre o parentesis para argumentos de arrow function
+    /*
+    'comma-dangle': ['error', {
+      arrays: 'always-multiline',
+      objects: 'always-multiline',
+      imports: 'always-multiline',
+      exports: 'always-multiline',
+      functions: 'always-multiline',
+    }],
+    */
+    // Força a virgula no final do ultimo elemento array ou objeto quando é multi-linhas, a original da ruim com functions
+    "comma-dangle" : ["warn", "always-multiline"],
+    /*
+    'jsx-a11y/no-noninteractive-element-to-interactive-role': ['error', {
+      ul: ['listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid'],
+      ol: ['listbox', 'menu', 'menubar', 'radiogroup', 'tablist', 'tree', 'treegrid'],
+      li: ['menuitem', 'option', 'row', 'tab', 'treeitem'],
+      table: ['grid'],
+      td: ['gridcell'],
+    }],
+    */
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": ["warn", {
+      "dd": ["button"], // Role button nos itens do scheduler/gate
+      "li": ["button", "menuitem"], // Role button nos itens do combobox (pro touch dos celulares funcionar)
+      "label": ["button"], // Role button para os pickers dos inputs de data, cep, ...
+      "td": ["button"], // Role button para os tds do calendário
+      "ul": ["menu"]
+    }],
+    /*
+    "max-len": ["error", 100, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+    }],
+    */
+    "max-len": ["warn", 128, 2, {"ignoreComments": true, "ignoreRegExpLiterals": true}], // Tamano máximo de caracteres por linha
+    /*
+    "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": [
+      "acc", // for reduce accumulators
+      "accumulator", // for reduce accumulators
+      "e", // for e.returnvalue
+      "ctx", // for Koa routing
+      "req", // for Express requests
+      "request", // for Express requests
+      "res", // for Express responses
+      "response", // for Express responses
+      "$scope", // for Angular 1 scopes
+    ]}],
+    */
+    "no-param-reassign": ["warn", {"props": false}],
+    /*
+    'no-underscore-dangle': ['error', {
+      allow: [],
+      allowAfterThis: false,
+      allowAfterSuper: false,
+      enforceInMethodNames: false,
+    }],
+    */
+    "no-underscore-dangle": ["warn", {"allow": ["_isMounted"]}],
+    /*
+    'object-curly-spacing': ['error', 'always'],
+    */
+    "object-curly-spacing": ["warn", "never"], // Require or disallow spaces inside brackets (off by default)
+    /*
+    'quote-props': ["error", "as-needed'", {"keywords": false, "unnecessary": true, "numbers": false}],
+    */
+    "quote-props": ["warn", "consistent"], // Se uma propriedade do objeto tiver aspas, todas devem ter, e vice-cersa
+    /*
+    'space-before-function-paren': ['error', {
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always'
+    }],
+    */
+    "space-before-function-paren": ["warn", "always"], // Força um espaço antes do parenteses de apertura na declaração da função
+    /*
+    'react-hooks/exhaustive-deps': 'warn',
+    */
+    "react-hooks/exhaustive-deps": ["warn", { "additionalHooks": "useDidUpdateEffect" }],
+    /*
+    'react/jsx-boolean-value': ['error', 'never', { always: [] }],
+    */
+    "react/jsx-boolean-value": ["warn", "always"], // Força a defalração dos booleanos required = {true}, não somente required
+    /*
+    'react/jsx-equals-spacing': ['error', 'never'],
+    */
+    "react/jsx-equals-spacing": ["warn", "always"],
+    /*
+    'react/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }],
+    */
+    "react/jsx-max-props-per-line": ["warn", {"maximum": 2}],
+    /*
+    'react/jsx-tag-spacing': ['error', {
+      closingSlash: 'never',
+      beforeSelfClosing: 'always',
+      afterOpening: 'never',
+      beforeClosing: 'never',
+    }],
+    */
+    "react/jsx-tag-spacing": ["warn", {"beforeSelfClosing": "never"}], // /> sem espaço
+    /*
+    'react/sort-comp': ['error', {
+      order: [
+        'static-methods',
+        'instance-variables',
+        'lifecycle',
+        '/^on.+$/',
+        'getters',
+        'setters',
+        '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
+        'instance-methods',
+        'everything-else',
+        'rendering',
+      ],
+      groups: {
+        lifecycle: [
+          'displayName',
+          'propTypes',
+          'contextTypes',
+          'childContextTypes',
+          'mixins',
+          'statics',
+          'defaultProps',
+          'constructor',
+          'getDefaultProps',
+          'getInitialState',
+          'state',
+          'getChildContext',
+          'componentWillMount',
+          'componentDidMount',
+          'componentWillReceiveProps',
+          'shouldComponentUpdate',
+          'componentWillUpdate',
+          'componentDidUpdate',
+          'componentWillUnmount',
+        ],
+        rendering: [
+          '/^render.+$/',
+          'render'
+        ],
+      },
+    }],
+    */
+    "react/sort-comp": ["warn", {
+      "order": [
+        "lifecycle",
+        "/^_.+$/",
+        "everything-else",
+        "/^handle.+$/",
+        "/^render.+$/",
+        "render"
+      ]
+    }],
+    /*
+    radix: 'error',
+    */
+    "radix": ["warn", "as-needed"], // O as-needed parte do princípio que é parseInt(value, 10), parece bom
+
+    ///////////////////////////////////////////////////////
+    // habilita regra do airbnb ou adiciona novas regras //
+    ///////////////////////////////////////////////////////
+    /*
+    'import/imports-first': 'off',
+    */
+    "import/imports-first": ["warn"], // import sempre no começo
+    /*
+    'react/jsx-key': 'off',
+    */
+    "react/jsx-key": ["warn"],
+    /*
+    'react/jsx-sort-props': ['off', {
+      ignoreCase: true,
+      callbacksLast: false,
+      shorthandFirst: false,
+      shorthandLast: false,
+      noSortAlphabetically: false,
+      reservedFirst: true,
+    }],
+    */
+    "react/jsx-sort-props": ["warn", {
+      "callbacksLast": false,
+      "shorthandFirst": true,
+      "shorthandLast": false,
+      "ignoreCase": true,
+      "noSortAlphabetically": false,
+      "reservedFirst": false
+    }], // Enforce props alphabetical sorting
+    /*
+    'react/sort-prop-types': ['off', {
+      ignoreCase: true,
+      callbacksLast: false,
+      requiredFirst: false,
+      sortShapeProp: true,
+    }],
+    */
+    "react/sort-prop-types": ["warn"], // esse só ordena as propTypes
+    "sorting/sort-object-props": ["warn", {"ignoreCase": true}] // ruim pra alguns casos url/params, type/state, ...
+  }
+}
