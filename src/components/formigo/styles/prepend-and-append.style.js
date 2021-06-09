@@ -1,8 +1,5 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    margin: 8,
-  },
+  border: 'solid 1px orange',
 });

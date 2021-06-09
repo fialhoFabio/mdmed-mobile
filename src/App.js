@@ -3,7 +3,6 @@ import styles from './App.style.js';
 import 'react-native-gesture-handler';
 
 import React, {useState} from 'react';
-import LoginScreen from './screens/LoginScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {View} from 'react-native';
 import Feedback from './Feedback';
@@ -21,7 +20,6 @@ function App () {
         <Feedback feedback = {{}}/>
         <Routes/>
       </View>
-      <LoginScreen/>
     </NavigationContainer>
   );
 }

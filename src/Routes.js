@@ -11,13 +11,16 @@ import {colors} from './styles/global';
 
 import React from 'react';
 
-
 const Stack = createStackNavigator();
 
 function Routes () {
   return (
     <Stack.Navigator>
-      <Stack.Screen component = {Login} name = "Login"/>
+      <Stack.Screen
+        component = {Login}
+        name = "Login"
+        options = {{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }
