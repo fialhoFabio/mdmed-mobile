@@ -14,9 +14,9 @@ Substituir o ip e criar arquivo hosts na raiz do projeto e colocar isso dentro:
 
 127.0.0.1 localhost
 ::1 ip6-localhost
-26.107.82.149 mdmed.local
-26.107.82.149 api.mdmed.local
-26.107.82.149 ws.mdmed.local
+[ENDERECO_IP] mdmed.local
+[ENDERECO_IP] api.mdmed.local
+[ENDERECO_IP] ws.mdmed.local
 
 Rodar para setar os hosts dentro da AVD:
     adb root && adb remount && adb push ./hosts /etc
