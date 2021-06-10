@@ -26,3 +26,17 @@ function Routes () {
 }
 
 export default Routes;
+
+const redirectMap = [
+  {redirectTo: '/', screenName: 'Login'},
+  {redirectTo: '/login', screenName: 'Login'},
+  {redirectTo: '/gate', screenName: 'Gate'},
+  {redirectTo: '/home', screenName: 'PatientList'},
+];
+
+export function redirectToScreen(redirectTo, redirectData) {
+  const redirectScreen = redirectMap.filter((data) => {
+    return data.redirectTo === redirectTo;
+  })[0];
+  // Go to screen [redirectScreen] with [redirectData]
+}

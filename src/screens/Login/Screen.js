@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 
 const logoImage = require('../../../assets/logo.png');
 
-function Screen () {
+function Screen ({navigation}) {
   return (
     <>
       <View style = {styles.logoWrapper}>

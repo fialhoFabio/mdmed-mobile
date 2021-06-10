@@ -43,22 +43,8 @@ export function resolveMinHour (hourA, hourB) {
 }
 
 export function resolveApiUrl (path) {
-  // Faço esse tratamento aqui por que ainda não arrumamos o servidor pra redirecionar o www.mdmed para
-  // mdmed, mas mesmo depois que o servidor cuidar disso não custa nada deixar aqui também.
-  const hostName = window.location.hostname.replace('www.', '');
-  if (hostName.indexOf('api') === -1) {
-    switch (hostName) {
-      case 'homolog.mdmed.clinic':
-      case 'homolog.mdmed.local':
-        return '//' + hostName.replace('homolog.', 'homologapi.') + path;
-      default:
-        // mdmed.clinic
-        // mdmed.local
-        return '//api.' + hostName + path;
-    }
-  } else {
-    return path;
-  }
+  // TODO Arrumar isso para diferenciar entre dev, homolog e producao
+  return 'http://api.mdmed.local' + path;
 }
 
 export function resolveMenuUrl (url) {
