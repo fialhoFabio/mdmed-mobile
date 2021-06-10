@@ -1,16 +1,18 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import LoginForm from './LoginForm';
+import PropTypes from 'prop-types';
 
 const logoImage = require('../../../assets/logo.png');
 
 function Screen ({navigation}) {
+  console.log(navigation);
   return (
     <>
       <View style = {styles.logoWrapper}>
         <Image source = {logoImage} style = {styles.logo}/>
       </View>
-      <LoginForm/>
+      <LoginForm navigation = {navigation}/>
     </>
   );
 }
@@ -26,5 +28,9 @@ const styles = StyleSheet.create({
     marginVertical: 120,
   },
 });
+
+Screen.propTypes = {
+  navigation: PropTypes.instanceOf(Object),
+};
 
 export default Screen;

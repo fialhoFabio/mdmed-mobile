@@ -20,18 +20,33 @@ function Formigo (props) {
       onSubmit = {(values) => {
         const formValues = {};
         formValues[modelName] = values;
-        fetchPost(action, formValues).then((res) => res.text())
+        fetchPost(action, formValues).then((res) => {
+          const a = res.text();
+          console.log(a);
+          return a;
+        })
           .then((res) => {
             const parsedResponse = JSON.parse(res);
+            console.log(parsedResponse.feedback);
             if (parsedResponse.feedback.type === 'success') {
-              // redirect
+              // navigation
+              setErrors({});
             } else if (parsedResponse.feedback.type === 'error') {
               setErrors(parsedResponse.feedback.modelErrors.errors);
             }
           });
       }}
     >
-      {({handleChange, handleSubmit, values}) => children(errors, handleChange, handleSubmit, values)}
+      {({
+        handleChange,
+        handleSubmit,
+        values,
+      }) => children({
+        errors,
+        handleChange,
+        handleSubmit,
+        values,
+      })}
     </Formik>
   );
 }
