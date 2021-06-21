@@ -1,13 +1,14 @@
-import {resolveApiUrl} from '../shared/utils/helper';
-
 // const credentials = 'same-origin'; // somente requisições no mesmo host
 const credentials = 'include'; // requisições em qualquer host (para usar api)
 
 const headers = {
   // 'Accept': 'application/json', // pra receber no formato json
   'Content-Type': 'application/json', // Pra API conseguir diferenciar requisição da convencional
-  'X-Requested-With': 'XMLHttpRequest', // Pra API conseguir diferenciar requisição da convencional
 };
+
+function resolveApiUrl () {
+  return 'http://api.mdmed.local';
+}
 
 export function isJson (response) {
   return response.headers.get('Content-Type').indexOf('application/json') > -1;
@@ -41,7 +42,7 @@ export function fetchPost (url, bodyParams, signal) {
   });
 }
 
-export function fetchSubmit (url, formData) {
+export function fetchSubmit (url, formData, signal) {
   if (!(formData instanceof FormData)) {
     throw new Error('Pra usar o fetchSubmit os dados precisam ser enviados usando o FormData');
   }
@@ -50,5 +51,6 @@ export function fetchSubmit (url, formData) {
     credentials,
     headers,
     method: 'post',
+    signal,
   });
 }
